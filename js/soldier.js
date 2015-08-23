@@ -8,8 +8,8 @@ var Soldier = function(bullets, x, rate, power) {
 
   this.sprite.anchor.setTo(0.5, 0.5);
 
-  this.sprite.maxHealth = Config.soldier.health
-  this.sprite.health = this.sprite.maxHealth
+  this.sprite.maxHealth = Config.soldier.maxHealth
+  this.sprite.health = Config.soldier.health
 
   game.physics.enable(this.sprite, Phaser.Physics.ARCADE)
   this.sprite.body.collideWorldBounds = true
@@ -25,12 +25,11 @@ var Soldier = function(bullets, x, rate, power) {
 
   this.bullets = bullets
 
-  this.power = Config.soldier.power
+  this.power = Config.soldier.attack
   this.fireRate = Config.soldier.fireRate
   this.nextFire = Config.soldier.nextFire
 
   this.update = function(monsters) {
-    this.health.update(this.sprite)
 
     if (game.time.now > this.nextFire && this.bullets.countDead() > 0 && monsters.length > 0) {
 
@@ -73,6 +72,13 @@ var Soldier = function(bullets, x, rate, power) {
 
       //console.log(bullet)
     }
+
+    if(monsters.length == 0) {
+      this.sprite.health += (Config.soldier.healthPerSec / 1000) * game.time.elapsed
+      if(this.sprite.health > Config.soldier.maxHealth) this.sprite.health = Config.soldier.maxHealth
+    }
+
+    this.health.update(this.sprite)
   }
 
 };

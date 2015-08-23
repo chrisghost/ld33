@@ -15,7 +15,7 @@ var Config = {
       },
       flyer : {
         attack: { lvl: 0, boostPerLevel: 20, get: function() { return this.lvl * this.boostPerLevel } },
-        health: { lvl: 0, boostPerLevel: 100, get: function() { return this.lvl * this.boostPerLevel } }
+        health: { lvl: 0, boostPerLevel: 70, get: function() { return this.lvl * this.boostPerLevel } }
       },
       walker : {
         attack: { lvl: 0, boostPerLevel: 100, get: function() { return this.lvl * this.boostPerLevel } },
@@ -27,32 +27,34 @@ var Config = {
   archer : {
     price: 1000,
     attackOnTouch : false,
-    power : function() { return 50 + Config.game.boost.archer.attack.get() },
+    attack : 50,//function() { return 50 + Config.game.boost.archer.attack.get() },
     fireRate : 500,
-    fireRange : function() { return 300 + Config.game.boost.archer.range.get() },
+    range : 300,//function() { return 300 + Config.game.boost.archer.range.get() },
     nextFire : 200,
-    health : function() { return 50 + Config.game.boost.archer.health.get() }
+    health : 50//function() { return 50 + Config.game.boost.archer.health.get() }
   },
   flyer: {
-    price: 300,
-    health : function() { return 200 + Config.game.boost.flyer.health.get() },
+    price: 700,
+    health : 100,//function() { return 100 + Config.game.boost.flyer.health.get() },
     bombRate: 1000,
     bombExplosionRange: 100,
-    power: function() { return 50 + Config.game.boost.flyer.attack.get() }
+    attack: 50,//function() { return 50 + Config.game.boost.flyer.attack.get() }
   },
   walker: {
     price: 300,
     attackOnTouch : true,
-    power : function() { return 100 + Config.game.boost.walker.attack.get() },
+    attack : 100,//function() { return 100 + Config.game.boost.walker.attack.get() },
     attackRate : 500,
     nextAttack : 500,
-    health: function() { return 200 + Config.game.boost.walker.health.get() }
+    health: 200,//function() { return 200 + Config.game.boost.walker.health.get() }
   },
   shield: {
     health: 500
   },
   soldier: {
-    health: 500,
+    health: 1000,
+    maxHealth: 2000,
+    healthPerSec: 500,
     fireRate: 100,
     nextFire: 100,
     power: 50,

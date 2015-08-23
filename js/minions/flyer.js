@@ -25,7 +25,7 @@ var Flyer = function (monster) {
 
   this.sprite.body.allowGravity = false
 
-  this.sprite.maxHealth = Config.flyer.health()
+  this.sprite.maxHealth = Config.flyer.health
   this.sprite.health = this.sprite.maxHealth
 
   this.VELOCITY = 300
@@ -69,7 +69,7 @@ var Flyer = function (monster) {
   }
   this.dropBomb = function() {
     var bomb = this.monster.monsterBombs.getFirstDead()
-    bomb.power = Config.flyer.power()
+    bomb.power = Config.flyer.attack
     bomb.range = Config.flyer.bombExplosionRange
     bomb.reset(this.sprite.body.center.x, this.sprite.body.bottom);
   }

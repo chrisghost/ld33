@@ -24,7 +24,7 @@ var Monster = function (minionsBullets) {
   this.monsterBombs = game.add.group()
   this.monsterBombs.enableBody = true
   this.monsterBombs.physicsBodyType = Phaser.Physics.ARCADE;
-  this.monsterBombs.createMultiple(20, 'bomb');
+  this.monsterBombs.createMultiple(50, 'bomb');
 
   this.monsterBombs.setAll('anchor.x', 0.5);
   this.monsterBombs.setAll('anchor.y', 0.5);
@@ -32,34 +32,25 @@ var Monster = function (minionsBullets) {
   this.monsterBombs.setAll('checkWorldBounds', true);
   this.monsterBombs.setAll('body.allowGravity', true);
 
-  game.input.keyboard.addKey(Phaser.Keyboard.C).onDown.add(function(key) {
-    this.spawn('walker')
-  }, this)
-
-  game.input.keyboard.addKey(Phaser.Keyboard.V).onDown.add(function(key) {
-    this.spawn('flyer')
-  }, this)
-
-  game.input.keyboard.addKey(Phaser.Keyboard.B).onDown.add(function(key) {
-    this.spawn('archer')
-  }, this)
+  this.recharging = 0
 
   this.spawn = function(what) {
+    this.recharging = 0
     var before = this.energy
     if(what == 'walker') {
-      if(this.energy > Config.walker.price) {
+      if(this.energy >= Config.walker.price) {
         this.minions.push(new Walker(this))
         this.energy -= Config.walker.price
       }
     }
     else if(what == 'flyer') {
-      if(this.energy > Config.flyer.price) {
+      if(this.energy >= Config.flyer.price) {
         this.minions.push(new Flyer(this))
         this.energy -= Config.flyer.price
       }
     }
     else if(what == 'archer') {
-      if(this.energy > Config.archer.price) {
+      if(this.energy >= Config.archer.price) {
         this.minions.push(new Archer(this))
         this.energy -= Config.archer.price
       }
@@ -69,7 +60,7 @@ var Monster = function (minionsBullets) {
     if(before != this.energy) {
       Config.game.xp += before - this.energy
       if(Config.game.xp > Config.game.nextUpgrade) {
-        Config.game.upgrades += 1
+        Config.game.upgrades = Config.game.upgrades + 1
         Config.game.nextUpgrade = Config.game.nextUpgrade * 2
         Config.game.MAX_ENERGY = Config.game.MAX_ENERGY * 1.2
       }
@@ -88,9 +79,20 @@ var Monster = function (minionsBullets) {
   this.update = function(soldiers) {
     //console.log(soldiers)
 
-    this.energy += game.time.elapsed * (Config.energyPerSec / 1000)
+    if(this.energy < Config.archer.price &&
+      this.energy < Config.flyer.price &&
+      this.energy < Config.walker.price
+    ) this.recharging = 10
 
-    if(this.energy > Config.game.MAX_ENERGY) this.energy = Config.game.MAX_ENERGY
+    if(this.recharging) {
+      this.energy += this.recharging //game.time.elapsed * (Config.energyPerSec / 1000)
+      this.recharging = this.recharging + 5
+    }
+
+    if(this.energy > Config.game.MAX_ENERGY) {
+      this.energy = Config.game.MAX_ENERGY
+      this.recharging = 0
+    }
 
 
     game.physics.arcade.overlap(

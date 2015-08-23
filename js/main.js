@@ -44,6 +44,7 @@ var PreloaderScene = {
 };
 
 
+window.rr = function(x) { return Math.floor(x) }
 window.onload = function () {
   window.game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
 

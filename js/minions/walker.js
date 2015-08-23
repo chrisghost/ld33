@@ -13,7 +13,7 @@ var Walker = function (monster) {
   this.sprite.item = this
 
   this.attackOnTouch = Config.walker.attackOnTouch
-  this.power = Config.walker.power()
+  this.power = Config.walker.attack
   this.attackRate = Config.walker.attackRate
   this.nextAttack = Config.walker.nextAttack
 
@@ -26,7 +26,7 @@ var Walker = function (monster) {
   this.health = new HealthBar(this.sprite.position.x, this.sprite.position.y)
   this.sprite.events.onKilled.addOnce(function() { this.health.kill() }, this)
 
-  this.sprite.maxHealth = Config.walker.health()
+  this.sprite.maxHealth = Config.walker.health
   this.sprite.health = this.sprite.maxHealth
 
   this.VELOCITY = 5

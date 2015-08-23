@@ -36,7 +36,7 @@ var PlayScene = {
     this.monster = new Monster(this.minionsBullets)
     this.soldiers = []
 
-    var minX = 0
+    var minX = 70
     var maxX = 300
 
     for(var i = 0; i < Config.game.lvl; i++) {
@@ -51,10 +51,10 @@ var PlayScene = {
 
     this.updateInfos = function() {
       document.getElementById("energybar").style.width = (this.monster.energy / Config.game.MAX_ENERGY)*100+"%"
-      document.getElementById("energymax").innerHTML = Config.game.MAX_ENERGY
-      document.getElementById("monster-energy").innerHTML = this.monster.energy
+      document.getElementById("energymax").innerHTML = rr(Config.game.MAX_ENERGY)
+      document.getElementById("monster-energy").innerHTML = rr(this.monster.energy)
       document.getElementById("xpbar").style.width = ((Config.game.xp - Config.game.nextUpgrade / 2) / (Config.game.nextUpgrade / 2)) * 100+"%"
-      document.getElementById("xptext").innerHTML = Config.game.xp +" / "+ Config.game.nextUpgrade
+      document.getElementById("xptext").innerHTML = rr(Config.game.xp) +" / "+ rr(Config.game.nextUpgrade)
 
     }
 
@@ -65,15 +65,16 @@ var PlayScene = {
         return function() {
           if(Config.game.upgrades > 0) {
             Config.game.upgrades -= 1
-            Config.game.boost[mob][skill].lvl += 1
+            Config[mob][skill] = Config[mob][skill] * 1.2
 
+            Config[mob].price = Config[mob].price * 1.2
             that.displayUpgrades()
           }
         }
       }
 
       var html = document.createElement("div")
-      html.style.cssText = 'text-align:center'
+      html.style.cssText = 'text-align:right'
       var l = document.createElement("h2")
       l.innerHTML = "LEVEL "+Config.game.lvl+""
       html.appendChild(l)
@@ -82,7 +83,7 @@ var PlayScene = {
       h.innerHTML = "UPGRADES ("+Config.game.upgrades+")"
 
       html.appendChild(h)
-      html.appendChild(document.createTextNode("Archer"))
+      html.appendChild(document.createTextNode("Archer (cost: "+rr(Config.archer.price)+")"))
 
       var input = document.createElement("input")
       input.type='button'
@@ -107,7 +108,7 @@ var PlayScene = {
       html.appendChild(input3)
 
       html.appendChild(document.createElement("hr"))
-      html.appendChild(document.createTextNode("Walker"))
+      html.appendChild(document.createTextNode("Walker (cost: "+rr(Config.walker.price)+")"))
 
       var input4 = document.createElement("input")
       input4.type='button'
@@ -124,7 +125,7 @@ var PlayScene = {
       html.appendChild(input5)
 
       html.appendChild(document.createElement("hr"))
-      html.appendChild(document.createTextNode("Flyer"))
+      html.appendChild(document.createTextNode("Flyer (cost: "+rr(Config.flyer.price)+")"))
 
       var input6 = document.createElement("input")
       input6.type='button'
@@ -145,6 +146,22 @@ var PlayScene = {
     }
 
     this.displayUpgrades()
+
+
+    game.input.keyboard.addKey(Phaser.Keyboard.C).onDown.add(function(key) {
+      this.monster.spawn('walker')
+      this.displayUpgrades()
+    }, this)
+
+    game.input.keyboard.addKey(Phaser.Keyboard.V).onDown.add(function(key) {
+      this.monster.spawn('flyer')
+      this.displayUpgrades()
+    }, this)
+
+    game.input.keyboard.addKey(Phaser.Keyboard.B).onDown.add(function(key) {
+      this.monster.spawn('archer')
+      this.displayUpgrades()
+    }, this)
   },
   update: function() {
     this.updateInfos()
