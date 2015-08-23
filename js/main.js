@@ -25,6 +25,11 @@ var PreloaderScene = {
     this.game.load.image('logo', 'images/phaser.png');
     this.game.load.image('monster', 'images/monster.png');
     this.game.load.image('walker', 'images/walker.png');
+    this.game.load.image('flyer', 'images/flyer.png');
+    this.game.load.image('bullet', 'images/bullet.png');
+    this.game.load.image('soldier', 'images/soldier.png');
+    this.game.load.image('bomb', 'images/bomb.png');
+    this.game.load.image('shield', 'images/shield.png');
   },
 
   create: function () {
