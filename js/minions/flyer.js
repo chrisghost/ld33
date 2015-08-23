@@ -26,13 +26,14 @@ var Flyer = function (monster) {
 
   this.VELOCITY = 300
 
-  this.bombRate = 500
-  this.nextBomb = 0
+  this.bombRate = 1000
+  this.nextBomb = this.bombRate
 
   this.update = function(soldiers) {
     this.health.update(this.sprite)
 
     var that = this
+/*
     var x = ((
          soldiers
          //.map(function(s) { return s.sprite.body.position.x; })
@@ -40,11 +41,20 @@ var Flyer = function (monster) {
            //console.log(prev, cur, index, arr)
            return prev + (that.sprite.body.position.x < cur.sprite.body.position.x) ? 1 : -1;
          }, 0) > 0) ? 1 : 0) * this.VELOCITY
+*/
 
-    this.sprite.body.velocity.x = x
+    var soldierUnder = soldiers.map( function(s) {
+      if(Math.abs(s.sprite.position.x - that.sprite.position.x) < 10) return true
+      else return false
+    }).filter(function(a) { return a }).length > 0
 
-    if(x == 0) {
-      //console.log("x = 0", this.nextBomb)
+    if(soldierUnder)
+      this.sprite.body.velocity.x = 0
+    else
+      this.sprite.body.velocity.x = this.VELOCITY
+
+    if(soldierUnder) {
+      console.log("x = 0", this.nextBomb, this.bombRate, game.time.elapsed)
       this.nextBomb += game.time.elapsed
 
       if(this.nextBomb >= this.bombRate) {
@@ -56,7 +66,7 @@ var Flyer = function (monster) {
   this.dropBomb = function() {
     var bomb = this.monster.monsterBombs.getFirstDead()
     bomb.power = 100
-    bomb.reset(this.sprite.body.position.x, this.sprite.body.position.y);
+    bomb.reset(this.sprite.body.center.x, this.sprite.body.bottom);
   }
 };
 

@@ -61,7 +61,7 @@ var Soldier = function(bullets, x, rate, power) {
 
       bullet.power = this.power
 
-      bullet.reset(this.sprite.body.position.x, this.sprite.body.position.y);
+      bullet.reset(this.sprite.body.center.x, this.sprite.body.center.y);
 
       //console.log(game.physics.arcade.moveToObject(bullet, closest, 500))
       bullet.rotation = game.physics.arcade.moveToXY(

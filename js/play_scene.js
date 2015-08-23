@@ -26,13 +26,16 @@ var PlayScene = {
 
 
     this.monster = new Monster()
-    this.soldiers = [
-      new Soldier(this.soldiersBullets, 140, 300, 10),
-      new Shield(140 + 40),
+    this.soldiers = []
 
-      new Soldier(this.soldiersBullets, 50, 500, 50),
-      new Shield(50 + 40)
-    ]
+    var minX = 0
+    var maxX = 300
+
+    for(var i = 0; i < this.lvl; i++) {
+      var x = Math.random() * (maxX - minX) + minX
+      this.soldiers.push(new Soldier(this.soldiersBullets, x, 300, 10))
+      this.soldiers.push(new Shield(x + 40))
+    }
 
     game.time.advancedTiming = true;
   },
@@ -60,7 +63,7 @@ var PlayScene = {
       game.state.start('menu', true, false, this.lvl + 1)
   },
   bulletHit: function(minion, bullet) {
-    console.log("HITTT")
+    console.log("HITTT", minion)
     minion.damage(bullet.power)
     bullet.kill()
   }
