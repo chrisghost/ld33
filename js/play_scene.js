@@ -5,6 +5,9 @@ var Soldier = require('./soldier.js');
 var Shield = require('./shield.js')
 
 var PlayScene = {
+  init: function (lvl) {
+    this.lvl = lvl || 1
+  },
   create: function () {
     game.physics.startSystem(Phaser.Physics.ARCADE)
     game.physics.arcade.gravity.y = 300
@@ -52,6 +55,9 @@ var PlayScene = {
     game.debug.text(this.monster.energy || '--', 2, 34, "#00ff00")
 
     //game.debug.text(this.monster.minions.map(function(e) { return e.sprite.health+" / "+e.sprite.maxHealth } ).join(', ') || '--', 2, 64, "#00ff00")
+
+    if(this.soldiers.length == 0)
+      game.state.start('menu', true, false, this.lvl + 1)
   },
   bulletHit: function(minion, bullet) {
     console.log("HITTT")
