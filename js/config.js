@@ -1,6 +1,6 @@
 'use strict';
 
-var Config = {
+var Config = JSON.parse(localStorage.getItem("com_chradr_ld33")) || {
   game: {
     MAX_ENERGY: 5000,
     xp: 0,
@@ -9,17 +9,17 @@ var Config = {
     lvl: 1,
     boost: {
       archer : {
-        attack: { lvl: 0, boostPerLevel: 30, get: function() { return this.lvl * this.boostPerLevel } },
-        health: { lvl: 0, boostPerLevel: 100, get: function() { return this.lvl * this.boostPerLevel } },
-        range: { lvl: 0, boostPerLevel: 50, get: function() { return this.lvl * this.boostPerLevel } }
+        attack: { lvl: 0, boostPerLevel: 30 },
+        health: { lvl: 0, boostPerLevel: 100 },
+        range: { lvl: 0, boostPerLevel: 50 }
       },
       flyer : {
-        attack: { lvl: 0, boostPerLevel: 20, get: function() { return this.lvl * this.boostPerLevel } },
-        health: { lvl: 0, boostPerLevel: 70, get: function() { return this.lvl * this.boostPerLevel } }
+        attack: { lvl: 0, boostPerLevel: 20 },
+        health: { lvl: 0, boostPerLevel: 70 }
       },
       walker : {
-        attack: { lvl: 0, boostPerLevel: 100, get: function() { return this.lvl * this.boostPerLevel } },
-        health: { lvl: 0, boostPerLevel: 100, get: function() { return this.lvl * this.boostPerLevel } }
+        attack: { lvl: 0, boostPerLevel: 100 },
+        health: { lvl: 0, boostPerLevel: 100 }
       }
     }
   },
@@ -52,8 +52,8 @@ var Config = {
     health: 500
   },
   soldier: {
-    health: 1000,
-    maxHealth: 2000,
+    health: 500,
+    maxHealth: 1000,
     healthPerSec: 500,
     fireRate: 100,
     nextFire: 100,

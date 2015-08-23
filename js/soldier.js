@@ -8,6 +8,12 @@ var Soldier = function(bullets, x, rate, power) {
 
   this.sprite.anchor.setTo(0.5, 0.5);
 
+  this.sprite.animations.add('attack',  [0, 1, 2], 30, true);
+  this.sprite.animations.add('attack_air',  [3, 4, 5], 30, true);
+  this.sprite.animations.add('idle',  [0], 10, true);
+
+  this.sprite.play('idle', 10, true)
+
   this.sprite.maxHealth = Config.soldier.maxHealth
   this.sprite.health = Config.soldier.health
 
@@ -29,7 +35,7 @@ var Soldier = function(bullets, x, rate, power) {
   this.fireRate = Config.soldier.fireRate
   this.nextFire = Config.soldier.nextFire
 
-  this.update = function(monsters) {
+  this.update = function(monsters, canRegenerate) {
 
     if (game.time.now > this.nextFire && this.bullets.countDead() > 0 && monsters.length > 0) {
 
@@ -70,10 +76,17 @@ var Soldier = function(bullets, x, rate, power) {
           closest.sprite.position.y,
           Config.soldier.bulletSpeed);
 
+
+      if(closest.sprite.position.y - this.sprite.position.y < -30) {
+        this.sprite.play('attack_air', 10, false)
+      }
+      else
+        this.sprite.play('attack', 10, false)
+
       //console.log(bullet)
     }
 
-    if(monsters.length == 0) {
+    if(monsters.length == 0 && canRegenerate) {
       this.sprite.health += (Config.soldier.healthPerSec / 1000) * game.time.elapsed
       if(this.sprite.health > Config.soldier.maxHealth) this.sprite.health = Config.soldier.maxHealth
     }

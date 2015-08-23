@@ -11,12 +11,18 @@ var Archer = function (monster) {
     game.world.centerX, game.world.centerY, 'archer');
   this.sprite.anchor.setTo(0.5, 0.5);
 
+  this.sprite.animations.add('walk',  [0, 1, 2], 30, true);
+  this.sprite.animations.add('attack',  [3, 4, 5], 30, true);
+  this.sprite.animations.add('idle',  [0], 10, true);
+
+  this.sprite.play('idle', 10, true)
+
   this.sprite.item = this
 
   this.attackOnTouch = Config.archer.attackOnTouch
   this.power = Config.archer.attack
   this.fireRate = Config.archer.fireRate
-  this.fireRange = Config.archer.fireRange()
+  this.fireRange = Config.archer.range
   this.nextFire = Config.archer.nextFire
 
   game.physics.enable(this.sprite, Phaser.Physics.ARCADE)
@@ -74,8 +80,16 @@ console.log(dest)
             1500);
       }
       this.sprite.body.velocity.x = 0
+
+      this.sprite.play('attack', 10, false)
     }
     else this.sprite.body.velocity.x += this.VELOCITY
+
+    if(this.sprite.body.velocity.x == 0 && this.sprite.animations.currentAnim.name == 'walk')
+      this.sprite.play('idle', 10, true)
+
+    if(this.sprite.body.velocity.x > 0 && this.sprite.animations.currentAnim.name == 'idle')
+      this.sprite.play('walk', 10, true)
   }
 };
 

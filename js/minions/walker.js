@@ -8,7 +8,14 @@ var Walker = function (monster) {
 
   this.sprite = game.add.sprite(
     game.world.centerX, game.world.centerY, 'walker');
+
   this.sprite.anchor.setTo(0.5, 0.5);
+
+  this.sprite.animations.add('walk',  [0, 1, 2, 3], 30, true);
+  this.sprite.animations.add('attack',  [4, 5, 6, 7], 30, true);
+  this.sprite.animations.add('idle',  [0], 1, true);
+
+  this.sprite.play('idle', 10, true)
 
   this.sprite.item = this
 
@@ -44,11 +51,18 @@ var Walker = function (monster) {
            return prev + (that.sprite.body.position.x < cur.sprite.body.position.x) ? 1 : -1;
          }, 0) > 0) ? 1 : 0) * this.VELOCITY
 
+    if(x > 0 && this.sprite.animations.currentAnim.name == 'idle')
+      this.sprite.play('walk', 10, true)
+    if(x == 0 && this.sprite.animations.currentAnim.name == 'walk')
+      this.sprite.play('idle', 10, true)
+
     this.sprite.body.velocity.x += x
   }
   this.attack = function(what) {
     ///console.log("Attack", what)
     what.damage(this.power)
+
+    this.sprite.play('attack', 10, false)
 
     this.sprite.body.velocity.x += (this.sprite.body.position.x - what.body.position.x) * 2
     this.sprite.body.velocity.y += this.sprite.body.position.y - what.body.position.y

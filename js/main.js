@@ -24,14 +24,17 @@ var PreloaderScene = {
     // TODO: load here the assets for the game
     this.game.load.image('logo', 'images/phaser.png');
     this.game.load.image('monster', 'images/monster.png');
-    this.game.load.image('walker', 'images/walker.png');
+    //this.game.load.image('walker', 'images/walker.png');
     //this.game.load.image('flyer', 'images/flyer.png');
     this.game.load.image('bullet', 'images/bullet.png');
-    this.game.load.image('soldier', 'images/soldier.png');
+    //this.game.load.image('soldier', 'images/soldier.png');
     this.game.load.image('bomb', 'images/bomb.png');
     this.game.load.image('shield', 'images/shield.png');
 
     this.game.load.spritesheet('flyer', 'images/flyer_anim.png', 64, 64, 4);
+    this.game.load.spritesheet('walker', 'images/walker_anim.png', 64, 64, 8);
+    this.game.load.spritesheet('soldier', 'images/soldier_anim.png', 64, 64, 6);
+    this.game.load.spritesheet('archer', 'images/archer_anim.png', 32, 50, 8);
 
     this.game.load.image('health_bkg', 'images/health_bkg.png');
     this.game.load.image('health', 'images/health.png');

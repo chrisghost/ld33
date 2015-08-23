@@ -66,6 +66,7 @@ var PlayScene = {
           if(Config.game.upgrades > 0) {
             Config.game.upgrades -= 1
 
+            Config.game.boost[mob][skill].lvl += 1
             Config[mob][skill] = Config[mob][skill] * 1.1
             Config[mob].price = Config[mob].price * 1.2
 
@@ -169,8 +170,9 @@ var PlayScene = {
     this.soldiers = this.soldiers.filter(function(e) { return e.sprite.alive })
     this.monster.update(this.soldiers)
     var minions = this.monster.minions
+    var that = this
     this.soldiers.map(function(e) {
-      e.update(minions)
+      e.update(minions, that.minionsBullets.countLiving() + that.monster.monsterBombs.countLiving() == 0)
     })
 
     game.physics.arcade.overlap(
@@ -194,6 +196,7 @@ var PlayScene = {
     if(this.soldiers.length == 0) {
       Config.game.lvl += 1
       game.state.start('menu')
+      localStorage.setItem("com_chradr_ld33", JSON.stringify(Config))
     }
   },
   bulletHit: function(minion, bullet) {
