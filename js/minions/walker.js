@@ -1,6 +1,7 @@
 'use strict';
 
 var HealthBar = require('../healthbar.js')
+var Config = require('../config.js')
 
 var Walker = function (monster) {
   this.monster = monster
@@ -11,10 +12,10 @@ var Walker = function (monster) {
 
   this.sprite.item = this
 
-  this.attackOnTouch = true
-  this.power = 100
-  this.attackRate = 500
-  this.nextAttack = this.attackRate
+  this.attackOnTouch = Config.walker.attackOnTouch
+  this.power = Config.walker.power
+  this.attackRate = Config.walker.attackRate
+  this.nextAttack = Config.walker.nextAttack
 
   game.physics.enable(this.sprite, Phaser.Physics.ARCADE)
   this.sprite.body.collideWorldBounds = true
@@ -25,7 +26,7 @@ var Walker = function (monster) {
   this.health = new HealthBar(this.sprite.position.x, this.sprite.position.y)
   this.sprite.events.onKilled.addOnce(function() { this.health.kill() }, this)
 
-  this.sprite.maxHealth = 500
+  this.sprite.maxHealth = Config.walker.health
   this.sprite.health = this.sprite.maxHealth
 
   this.VELOCITY = 5

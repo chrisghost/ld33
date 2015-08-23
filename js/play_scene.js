@@ -24,8 +24,19 @@ var PlayScene = {
     this.soldiersBullets.setAll('body.allowGravity', false);
 
 
+    this.minionsBullets = game.add.group()
+    this.minionsBullets.enableBody = true
+    this.minionsBullets.physicsBodyType = Phaser.Physics.ARCADE;
+    this.minionsBullets.createMultiple(100, 'bullet');
 
-    this.monster = new Monster()
+    this.minionsBullets.setAll('anchor.x', 0.5);
+    this.minionsBullets.setAll('anchor.y', 0.5);
+    this.minionsBullets.setAll('outOfBoundsKill', true);
+    this.minionsBullets.setAll('checkWorldBounds', true);
+    this.minionsBullets.setAll('body.allowGravity', false);
+
+
+    this.monster = new Monster(this.minionsBullets)
     this.soldiers = []
 
     var minX = 0
@@ -54,8 +65,19 @@ var PlayScene = {
         null,
         this)
 
+    game.physics.arcade.overlap(
+        this.minionsBullets,
+        this.soldiers.map(function(e) { return e.sprite }),
+        this.bulletHit,
+        null,
+        this)
+
     game.debug.text(game.time.fps || '--', 2, 14, "#00ff00")
     game.debug.text(this.monster.energy || '--', 2, 34, "#00ff00")
+
+    game.debug.text("C - Walker", 2, 70, "#00ff00")
+    game.debug.text("V - Flyer", 2, 90, "#00ff00")
+    game.debug.text("B - Archer", 2, 110, "#00ff00")
 
     //game.debug.text(this.monster.minions.map(function(e) { return e.sprite.health+" / "+e.sprite.maxHealth } ).join(', ') || '--', 2, 64, "#00ff00")
 
@@ -63,7 +85,7 @@ var PlayScene = {
       game.state.start('menu', true, false, this.lvl + 1)
   },
   bulletHit: function(minion, bullet) {
-    console.log("HITTT", minion)
+    //console.log("HITTT", minion)
     minion.damage(bullet.power)
     bullet.kill()
   }

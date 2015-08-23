@@ -6,7 +6,7 @@ var MenuScene = {
   },
   create: function () {
 
-    var style = { font: "bold 32px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
+    var style = { font: "bold 32px Arial", fill: "#000", boundsAlignH: "center", boundsAlignV: "middle" };
 
     var text = game.add.text(0, 0, "You are the Monster!", style);
     text.setTextBounds(0, 100, 800, 100);

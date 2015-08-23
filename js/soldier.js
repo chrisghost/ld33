@@ -1,13 +1,14 @@
 'use strict'
 
 var HealthBar = require('./healthbar.js')
+var Config = require('./config.js')
 
 var Soldier = function(bullets, x, rate, power) {
   this.sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'soldier')
 
   this.sprite.anchor.setTo(0.5, 0.5);
 
-  this.sprite.maxHealth = 500
+  this.sprite.maxHealth = Config.soldier.health
   this.sprite.health = this.sprite.maxHealth
 
   game.physics.enable(this.sprite, Phaser.Physics.ARCADE)
@@ -24,9 +25,9 @@ var Soldier = function(bullets, x, rate, power) {
 
   this.bullets = bullets
 
-  this.power = power
-  this.fireRate = rate
-  this.nextFire = this.fireRate
+  this.power = Config.soldier.power
+  this.fireRate = Config.soldier.fireRate
+  this.nextFire = Config.soldier.nextFire
 
   this.update = function(monsters) {
     this.health.update(this.sprite)

@@ -1,13 +1,14 @@
 'use strict'
 
 var HealthBar = require('./healthbar.js')
+var Config = require('./config.js')
 
 var Shield = function(x) {
   this.sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'shield')
 
   this.sprite.anchor.setTo(0.5, 0.5);
 
-  this.sprite.maxHealth = 500
+  this.sprite.maxHealth = Config.shield.health
   this.sprite.health = this.sprite.maxHealth
 
   game.physics.enable(this.sprite, Phaser.Physics.ARCADE)

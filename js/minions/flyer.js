@@ -1,6 +1,7 @@
 'use strict';
 
 var HealthBar = require('../healthbar.js')
+var Config = require('../config.js')
 
 var Flyer = function (monster) {
   this.monster = monster
@@ -21,12 +22,12 @@ var Flyer = function (monster) {
 
   this.sprite.body.allowGravity = false
 
-  this.sprite.maxHealth = 200
+  this.sprite.maxHealth = Config.flyer.health
   this.sprite.health = this.sprite.maxHealth
 
   this.VELOCITY = 300
 
-  this.bombRate = 1000
+  this.bombRate = Config.flyer.bombRate
   this.nextBomb = this.bombRate
 
   this.update = function(soldiers) {
@@ -54,7 +55,7 @@ var Flyer = function (monster) {
       this.sprite.body.velocity.x = this.VELOCITY
 
     if(soldierUnder) {
-      console.log("x = 0", this.nextBomb, this.bombRate, game.time.elapsed)
+      //console.log("x = 0", this.nextBomb, this.bombRate, game.time.elapsed)
       this.nextBomb += game.time.elapsed
 
       if(this.nextBomb >= this.bombRate) {
@@ -65,7 +66,8 @@ var Flyer = function (monster) {
   }
   this.dropBomb = function() {
     var bomb = this.monster.monsterBombs.getFirstDead()
-    bomb.power = 100
+    bomb.power = Config.flyer.power
+    bomb.range = Config.flyer.bombExplosionRange
     bomb.reset(this.sprite.body.center.x, this.sprite.body.bottom);
   }
 };

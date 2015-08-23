@@ -36,6 +36,7 @@ var PreloaderScene = {
   },
 
   create: function () {
+    game.stage.backgroundColor = '#ffffff'
     this.game.state.start('menu');
   }
 };
