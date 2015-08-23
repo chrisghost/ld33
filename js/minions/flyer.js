@@ -9,6 +9,8 @@ var Flyer = function (monster) {
   this.sprite = game.add.sprite(
     game.world.centerX, game.world.centerY, 'flyer');
   this.sprite.anchor.setTo(0.5, 0.5);
+  this.anim = this.sprite.animations.add('fly')
+  this.sprite.play('fly', 10, true)
 
   game.physics.enable(this.sprite, Phaser.Physics.ARCADE)
   this.sprite.body.collideWorldBounds = true
@@ -16,13 +18,14 @@ var Flyer = function (monster) {
   this.attackOnTouch = false
 
   this.sprite.position.x = 0
+  this.sprite.position.y = (game.height / 2) + (200 * (Math.random() - 0.5))
 
   this.health = new HealthBar(this.sprite.position.x, this.sprite.position.y)
   this.sprite.events.onKilled.addOnce(function() { this.health.kill() }, this)
 
   this.sprite.body.allowGravity = false
 
-  this.sprite.maxHealth = Config.flyer.health
+  this.sprite.maxHealth = Config.flyer.health()
   this.sprite.health = this.sprite.maxHealth
 
   this.VELOCITY = 300
@@ -66,7 +69,7 @@ var Flyer = function (monster) {
   }
   this.dropBomb = function() {
     var bomb = this.monster.monsterBombs.getFirstDead()
-    bomb.power = Config.flyer.power
+    bomb.power = Config.flyer.power()
     bomb.range = Config.flyer.bombExplosionRange
     bomb.reset(this.sprite.body.center.x, this.sprite.body.bottom);
   }

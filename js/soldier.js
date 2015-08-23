@@ -69,7 +69,7 @@ var Soldier = function(bullets, x, rate, power) {
           bullet,
           closest.sprite.position.x,
           closest.sprite.position.y,
-          1500);
+          Config.soldier.bulletSpeed);
 
       //console.log(bullet)
     }

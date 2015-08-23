@@ -14,9 +14,9 @@ var Archer = function (monster) {
   this.sprite.item = this
 
   this.attackOnTouch = Config.archer.attackOnTouch
-  this.power = Config.archer.power
+  this.power = Config.archer.power()
   this.fireRate = Config.archer.fireRate
-  this.fireRange = Config.archer.fireRange
+  this.fireRange = Config.archer.fireRange()
   this.nextFire = Config.archer.nextFire
 
   game.physics.enable(this.sprite, Phaser.Physics.ARCADE)
@@ -28,7 +28,7 @@ var Archer = function (monster) {
   this.health = new HealthBar(this.sprite.position.x, this.sprite.position.y)
   this.sprite.events.onKilled.addOnce(function() { this.health.kill() }, this)
 
-  this.sprite.maxHealth = Config.archer.health
+  this.sprite.maxHealth = Config.archer.health()
   this.sprite.health = this.sprite.maxHealth
 
   this.VELOCITY = 5

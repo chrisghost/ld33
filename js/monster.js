@@ -45,6 +45,7 @@ var Monster = function (minionsBullets) {
   }, this)
 
   this.spawn = function(what) {
+    var before = this.energy
     if(what == 'walker') {
       if(this.energy > Config.walker.price) {
         this.minions.push(new Walker(this))
@@ -64,6 +65,15 @@ var Monster = function (minionsBullets) {
       }
     }
     //console.log(this.minions)
+
+    if(before != this.energy) {
+      Config.game.xp += before - this.energy
+      if(Config.game.xp > Config.game.nextUpgrade) {
+        Config.game.upgrades += 1
+        Config.game.nextUpgrade = Config.game.nextUpgrade * 2
+        Config.game.MAX_ENERGY = Config.game.MAX_ENERGY * 1.2
+      }
+    }
   }
   this.monsterTouchSoldier = function(monster, soldier) {
     //console.log(monster, monster.nextAttack , soldier.attackRate, monster.attackRate, "\<monsterTouchSoldier\>")
@@ -80,7 +90,7 @@ var Monster = function (minionsBullets) {
 
     this.energy += game.time.elapsed * (Config.energyPerSec / 1000)
 
-    if(this.energy > Config.MAX_ENERGY) this.energy = Config.MAX_ENERGY
+    if(this.energy > Config.game.MAX_ENERGY) this.energy = Config.game.MAX_ENERGY
 
 
     game.physics.arcade.overlap(

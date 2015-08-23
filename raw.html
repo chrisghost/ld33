@@ -17,5 +17,27 @@
 </head>
 <body>
   <div id="game"></div>
+  <div id="info" style='position:fixed;top:0;width:50%;left:0;'>
+      <p>C - Walker<br/>
+      V - Flyer<br/>
+      B - Archer
+      </p>
+
+      <p><span>Energy :</span>
+        <div style="height:20px; background-color:black; width: 300px" id="energybar-bkg">
+          <span style='color:white; position: fixed'><span id="monster-energy"></span> / <span id="energymax"></span></span>
+          <div style="height:20px; background-color:green; width: 5%" id="energybar">
+          </div>
+        </div>
+      </p>
+      <p>XP :
+        <div style="height:20px; background-color:black; width: 300px" id="xpbar-bkg">
+          <span style='color:white; position:fixed' id="xptext"></span>
+          <div style="height:20px; background-color:green; width: 5%" id="xpbar">
+          </div>
+        </div>
+      </p>
+  </div>
+  <div id="upgrades" style='position:fixed;top:0;width:50%;right:0;'></div>
 </body>
 </html>
