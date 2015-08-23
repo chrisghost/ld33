@@ -46,7 +46,7 @@ var Config = {
     attack : 100,//function() { return 100 + Config.game.boost.walker.attack.get() },
     attackRate : 500,
     nextAttack : 500,
-    health: 200,//function() { return 200 + Config.game.boost.walker.health.get() }
+    health: 200//function() { return 200 + Config.game.boost.walker.health.get() }
   },
   shield: {
     health: 500
@@ -57,7 +57,7 @@ var Config = {
     healthPerSec: 500,
     fireRate: 100,
     nextFire: 100,
-    power: 50,
+    attack: 50,
     bulletSpeed: 2500
   }
 }

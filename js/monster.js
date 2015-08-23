@@ -62,7 +62,7 @@ var Monster = function (minionsBullets) {
       if(Config.game.xp > Config.game.nextUpgrade) {
         Config.game.upgrades = Config.game.upgrades + 1
         Config.game.nextUpgrade = Config.game.nextUpgrade * 2
-        Config.game.MAX_ENERGY = Config.game.MAX_ENERGY * 1.2
+        Config.game.MAX_ENERGY = Config.game.MAX_ENERGY * 1.1
       }
     }
   }
@@ -81,7 +81,8 @@ var Monster = function (minionsBullets) {
 
     if(this.energy < Config.archer.price &&
       this.energy < Config.flyer.price &&
-      this.energy < Config.walker.price
+      this.energy < Config.walker.price &&
+      this.minions.length == 0
     ) this.recharging = 10
 
     if(this.recharging) {
@@ -93,6 +94,9 @@ var Monster = function (minionsBullets) {
       this.energy = Config.game.MAX_ENERGY
       this.recharging = 0
     }
+
+    this.minions = this.minions.filter(function(e) { return e.sprite.alive })
+    this.minions.map(function(e) { e.update(soldiers); })
 
 
     game.physics.arcade.overlap(
@@ -111,9 +115,6 @@ var Monster = function (minionsBullets) {
         null,
         this)
 
-
-    this.minions = this.minions.filter(function(e) { return e.sprite.alive })
-    this.minions.map(function(e) { e.update(soldiers); })
   }
   this.bombHit = function(soldier, bomb) {
     this.soldiers.map ( function(s) {

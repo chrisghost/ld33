@@ -65,9 +65,10 @@ var PlayScene = {
         return function() {
           if(Config.game.upgrades > 0) {
             Config.game.upgrades -= 1
-            Config[mob][skill] = Config[mob][skill] * 1.2
 
+            Config[mob][skill] = Config[mob][skill] * 1.1
             Config[mob].price = Config[mob].price * 1.2
+
             that.displayUpgrades()
           }
         }
