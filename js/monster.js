@@ -12,6 +12,11 @@ var Monster = function (minionsBullets) {
     game.world.centerX, game.world.centerY, 'monster');
   this.sprite.anchor.setTo(0.5, 0.5);
 
+  this.sprite.animations.add('spawn',  [0, 1, 2, 0], 30, true);
+  this.sprite.animations.add('idle',  [0], 1, true);
+
+  this.sprite.play('idle', 10, true)
+
   game.physics.enable(this.sprite, Phaser.Physics.ARCADE)
   this.sprite.body.collideWorldBounds = true
 
@@ -64,6 +69,7 @@ var Monster = function (minionsBullets) {
         Config.game.nextUpgrade = Config.game.nextUpgrade * 2
         Config.game.MAX_ENERGY = Config.game.MAX_ENERGY * 1.1
       }
+      this.sprite.play('spawn', 10, false)
     }
   }
   this.monsterTouchSoldier = function(monster, soldier) {

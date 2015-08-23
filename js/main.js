@@ -23,7 +23,7 @@ var PreloaderScene = {
 
     // TODO: load here the assets for the game
     this.game.load.image('logo', 'images/phaser.png');
-    this.game.load.image('monster', 'images/monster.png');
+    this.game.load.spritesheet('monster', 'images/monster.png', 64, 128, 3);
     //this.game.load.image('walker', 'images/walker.png');
     //this.game.load.image('flyer', 'images/flyer.png');
     this.game.load.image('bullet', 'images/bullet.png');

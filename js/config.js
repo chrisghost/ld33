@@ -57,7 +57,7 @@ var Config = JSON.parse(localStorage.getItem("com_chradr_ld33")) || {
     healthPerSec: 500,
     fireRate: 100,
     nextFire: 100,
-    attack: 50,
+    attack: 20,
     bulletSpeed: 2500
   }
 }

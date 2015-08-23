@@ -39,10 +39,10 @@ var PlayScene = {
     var minX = 70
     var maxX = 300
 
-    for(var i = 0; i < Config.game.lvl; i++) {
+    for(var i = 0; i < Config.game.lvl/3; i++) {
       var x = Math.random() * (maxX - minX) + minX
       this.soldiers.push(new Soldier(this.soldiersBullets, x, 300, 10))
-      this.soldiers.push(new Shield(x + 40))
+      if(Math.random() > 0.6) this.soldiers.push(new Shield(x + 40))
     }
 
     game.time.advancedTiming = true;
@@ -67,7 +67,7 @@ var PlayScene = {
             Config.game.upgrades -= 1
 
             Config.game.boost[mob][skill].lvl += 1
-            Config[mob][skill] = Config[mob][skill] * 1.1
+            Config[mob][skill] = Config[mob][skill] * 1.2
             Config[mob].price = Config[mob].price * 1.2
 
             that.displayUpgrades()
