@@ -30,6 +30,9 @@ var PreloaderScene = {
     this.game.load.image('soldier', 'images/soldier.png');
     this.game.load.image('bomb', 'images/bomb.png');
     this.game.load.image('shield', 'images/shield.png');
+
+    this.game.load.image('health_bkg', 'images/health_bkg.png');
+    this.game.load.image('health', 'images/health.png');
   },
 
   create: function () {

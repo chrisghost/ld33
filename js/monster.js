@@ -50,7 +50,7 @@ var Monster = function () {
         this.energy -= 600
       }
     }
-    console.log(this.minions)
+    //console.log(this.minions)
   }
   this.monsterTouchSoldier = function(monster, soldier) {
     //console.log(monster, monster.nextAttack , soldier.attackRate, monster.attackRate, "\<monsterTouchSoldier\>")

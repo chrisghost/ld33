@@ -1,5 +1,7 @@
 'use strict';
 
+var HealthBar = require('../healthbar.js')
+
 var Walker = function (monster) {
   this.monster = monster
 
@@ -20,12 +22,18 @@ var Walker = function (monster) {
   this.sprite.position.x = 0
   this.sprite.position.y = game.height - 100
 
-  this.sprite.health = 50
+  this.health = new HealthBar(this.sprite.position.x, this.sprite.position.y)
+  this.sprite.events.onKilled.addOnce(function() { this.health.kill() }, this)
+
+  this.sprite.maxHealth = 500
+  this.sprite.health = this.sprite.maxHealth
 
   this.VELOCITY = 5
   this.sprite.body.maxVelocity = 50
 
   this.update = function(soldiers) {
+    this.health.update(this.sprite)
+
     var that = this
     var x = ((
          soldiers
@@ -38,13 +46,13 @@ var Walker = function (monster) {
     this.sprite.body.velocity.x += x
   }
   this.attack = function(what) {
-    console.log("Attack", what)
+    ///console.log("Attack", what)
     what.damage(this.power)
 
     this.sprite.body.velocity.x += (this.sprite.body.position.x - what.body.position.x) * 2
     this.sprite.body.velocity.y += this.sprite.body.position.y - what.body.position.y
-    console.log(this.sprite.body.velocity.x, this.sprite.body.position.x - what.body.position.x)
-    console.log(this.sprite.body.velocity.y, this.sprite.body.position.y - what.body.position.y)
+    ///console.log(this.sprite.body.velocity.x, this.sprite.body.position.x - what.body.position.x)
+    //console.log(this.sprite.body.velocity.y, this.sprite.body.position.y - what.body.position.y)
   }
 };
 

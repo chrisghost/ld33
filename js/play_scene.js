@@ -50,6 +50,8 @@ var PlayScene = {
 
     game.debug.text(game.time.fps || '--', 2, 14, "#00ff00")
     game.debug.text(this.monster.energy || '--', 2, 34, "#00ff00")
+
+    //game.debug.text(this.monster.minions.map(function(e) { return e.sprite.health+" / "+e.sprite.maxHealth } ).join(', ') || '--', 2, 64, "#00ff00")
   },
   bulletHit: function(minion, bullet) {
     console.log("HITTT")

@@ -1,17 +1,23 @@
 'use strict'
 
+var HealthBar = require('./healthbar.js')
+
 var Soldier = function(bullets, x, rate, power) {
   this.sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'soldier')
 
   this.sprite.anchor.setTo(0.5, 0.5);
 
-  this.sprite.health = 500
+  this.sprite.maxHealth = 500
+  this.sprite.health = this.sprite.maxHealth
 
   game.physics.enable(this.sprite, Phaser.Physics.ARCADE)
   this.sprite.body.collideWorldBounds = true
 
   this.sprite.position.x = game.width - x
   this.sprite.position.y = game.height - this.sprite.height
+
+  this.health = new HealthBar(this.sprite.position.x, this.sprite.position.y)
+  this.sprite.events.onKilled.addOnce(function() { this.health.kill() }, this)
 
   this.sprite.body.immovable = true
   this.sprite.body.moves = false
@@ -23,6 +29,7 @@ var Soldier = function(bullets, x, rate, power) {
   this.nextFire = this.fireRate
 
   this.update = function(monsters) {
+    this.health.update(this.sprite)
 
     if (game.time.now > this.nextFire && this.bullets.countDead() > 0 && monsters.length > 0) {
 
