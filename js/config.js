@@ -41,7 +41,7 @@ var Config = JSON.parse(localStorage.getItem("com_chradr_ld33")) || {
     attack: 50,//function() { return 50 + Config.game.boost.flyer.attack.get() }
   },
   walker: {
-    price: 300,
+    price: 500,
     attackOnTouch : true,
     attack : 100,//function() { return 100 + Config.game.boost.walker.attack.get() },
     attackRate : 500,
@@ -52,12 +52,12 @@ var Config = JSON.parse(localStorage.getItem("com_chradr_ld33")) || {
     health: 500
   },
   soldier: {
-    health: 500,
-    maxHealth: 1000,
+    health: 700,
+    maxHealth: 1400,
     healthPerSec: 500,
     fireRate: 100,
     nextFire: 100,
-    attack: 20,
+    attack: 30,
     bulletSpeed: 2500
   }
 }

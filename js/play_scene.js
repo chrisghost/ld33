@@ -10,6 +10,8 @@ var PlayScene = {
     game.physics.startSystem(Phaser.Physics.ARCADE)
     game.physics.arcade.gravity.y = 300
 
+    this.bkg = this.game.add.sprite(0, 0, 'bkg');
+
     this.soldiersBullets = game.add.group()
     this.soldiersBullets.enableBody = true
     this.soldiersBullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -69,6 +71,8 @@ var PlayScene = {
             Config.game.boost[mob][skill].lvl += 1
             Config[mob][skill] = Config[mob][skill] * 1.2
             Config[mob].price = Config[mob].price * 1.2
+            Config.soldier.health = Config.soldier.health * 1.1
+            Config.soldier.power = Config.soldier.power * 1.1
 
             that.displayUpgrades()
           }
@@ -76,7 +80,11 @@ var PlayScene = {
       }
 
       var html = document.createElement("div")
-      html.style.cssText = 'text-align:right'
+      var bkg = document.createElement("div")
+      bkg.style.cssText = "position: fixed; top: 0px; ;height: 40%; width: 50%; background-color: white; right: 0px;opacity: 0.5;z-index:-999999"
+      html.style.cssText = 'text-align:right; padding-right: 20px;'
+      html.appendChild(bkg)
+
       var l = document.createElement("h2")
       l.innerHTML = "LEVEL "+Config.game.lvl+""
       html.appendChild(l)
@@ -85,7 +93,7 @@ var PlayScene = {
       h.innerHTML = "UPGRADES ("+Config.game.upgrades+")"
 
       html.appendChild(h)
-      html.appendChild(document.createTextNode("Archer (cost: "+rr(Config.archer.price)+")"))
+      html.appendChild(document.createTextNode("Hell's sniper (cost: "+rr(Config.archer.price)+")"))
 
       var input = document.createElement("input")
       input.type='button'
@@ -110,7 +118,7 @@ var PlayScene = {
       html.appendChild(input3)
 
       html.appendChild(document.createElement("hr"))
-      html.appendChild(document.createTextNode("Walker (cost: "+rr(Config.walker.price)+")"))
+      html.appendChild(document.createTextNode("Demon's child (cost: "+rr(Config.walker.price)+")"))
 
       var input4 = document.createElement("input")
       input4.type='button'
@@ -127,7 +135,7 @@ var PlayScene = {
       html.appendChild(input5)
 
       html.appendChild(document.createElement("hr"))
-      html.appendChild(document.createTextNode("Flyer (cost: "+rr(Config.flyer.price)+")"))
+      html.appendChild(document.createTextNode("Sky's doomer (cost: "+rr(Config.flyer.price)+")"))
 
       var input6 = document.createElement("input")
       input6.type='button'

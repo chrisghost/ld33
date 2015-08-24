@@ -22,6 +22,8 @@ var PreloaderScene = {
     this.load.setPreloadSprite(this.loadingBar);
 
     // TODO: load here the assets for the game
+    this.game.load.image('bkg', 'images/background.png');
+    this.game.load.image('bkg_center', 'images/bkg_center.png');
     this.game.load.image('logo', 'images/phaser.png');
     this.game.load.spritesheet('monster', 'images/monster.png', 64, 128, 3);
     //this.game.load.image('walker', 'images/walker.png');
